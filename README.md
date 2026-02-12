@@ -1,4 +1,4 @@
-# 🦞 OpenClaw Governor
+# 🦞 Power Level Governor
 
 **Power Level Control for OpenClaw Agents** — A DBZ-themed token governor that manages context window limits, temperature, and extended thinking (reasoning) for your Claude Opus agent.
 
@@ -8,7 +8,7 @@
 
 ## What Is This?
 
-The OpenClaw Governor is a standalone web interface that controls resource allocation for OpenClaw agents. It writes directly to your `openclaw.json` config to apply changes in real-time.
+The Power Level Governor is a standalone web interface that controls resource allocation for OpenClaw agents. It writes directly to your `openclaw.json` config to apply changes in real-time.
 
 ### Features
 
