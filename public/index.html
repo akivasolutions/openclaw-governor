@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Governor — Power Level Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-gradient"></div>
+
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">🦞 OpenClaw <span>Governor</span></span>
+    </div>
+    <div class="header-right">
+      <span id="config-status" class="budget-pill">Loading...</span>
+    </div>
+  </header>
+
+  <main class="main">
+    
+    <section class="section">
+      <h2 class="section-title">⚡ Power Level Control</h2>
+      <p class="section-sub">It's over 9000! Control maxTokens, temperature, and reasoning for your OpenClaw Opus agent.</p>
+    </section>
+
+    <!-- Status Cards -->
+    <section class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-label">Active maxTokens</div>
+        <div class="stat-value" id="gov-active-tokens">—</div>
+        <div class="stat-sub" id="gov-active-level">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Mode</div>
+        <div class="stat-value" id="gov-mode-display">—</div>
+        <div class="stat-sub" id="gov-mode-sub">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Reserve Floor</div>
+        <div class="stat-value" id="gov-reserve">—</div>
+        <div class="stat-sub">Context before compaction</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Temperature</div>
+        <div class="stat-value" id="gov-temp">—</div>
+        <div class="stat-sub" id="gov-temp-mode">Lower = precise, Higher = creative</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Reasoning</div>
+        <div class="stat-value" id="gov-reasoning-status">—</div>
+        <div class="stat-sub" id="gov-reasoning-sub">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Last Updated</div>
+        <div class="stat-value" id="gov-updated">—</div>
+        <div class="stat-sub" id="gov-updated-sub">—</div>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="section gov-controls">
+      <h3>Power Level</h3>
+      <div class="gov-slider-row">
+        <div class="gov-presets">
+          <button class="gov-preset" data-level="low" data-tokens="4096">🟢 Krillin<br><small>4K</small></button>
+          <button class="gov-preset" data-level="medium" data-tokens="8192">🔵 Vegeta<br><small>8K</small></button>
+          <button class="gov-preset" data-level="high" data-tokens="16384">🟡 Super Saiyan<br><small>16K</small></button>
+          <button class="gov-preset" data-level="ssg" data-tokens="32768">🟠 SS God<br><small>32K</small></button>
+          <button class="gov-preset" data-level="ssb" data-tokens="65536">💠 SS Blue<br><small>64K</small></button>
+          <button class="gov-preset" data-level="max" data-tokens="128000">🔴 Ultra Instinct<br><small>128K</small></button>
+        </div>
+        <div class="gov-custom">
+          <label>Custom: <input type="range" id="gov-slider" min="4096" max="131072" step="1024" value="16384"></label>
+          <span id="gov-slider-value">16,384</span>
+        </div>
+      </div>
+
+      <h3>Task Presets <span class="section-sub">One-click combos</span></h3>
+      <div class="gov-task-presets">
+        <button class="gov-task-preset" data-preset="code">💻 Code<br><small>8K / 0.3</small></button>
+        <button class="gov-task-preset" data-preset="creativity">🎨 Creative<br><small>16K / 🧠 12K</small></button>
+        <button class="gov-task-preset" data-preset="pm">📋 PM<br><small>4K / 0.5</small></button>
+        <button class="gov-task-preset" data-preset="planning">🏗️ Planning<br><small>32K / 🧠 10K</small></button>
+        <button class="gov-task-preset" data-preset="brainstorm">💡 Brainstorm<br><small>16K / 🧠 15K</small></button>
+        <button class="gov-task-preset" data-preset="debug">🐛 Debug<br><small>64K / 🧠 20K</small></button>
+      </div>
+
+      <h3>Mode</h3>
+      <div class="gov-mode-toggle">
+        <label><input type="radio" name="gov-mode" value="manual" checked> Manual — you control the power level</label>
+        <label><input type="radio" name="gov-mode" value="auto"> Auto — time-of-day schedule applies</label>
+      </div>
+
+      <h3>Time Schedule <span class="section-sub">(auto mode only)</span></h3>
+      <div class="gov-schedule" id="gov-schedule">
+        <div class="gov-schedule-bar" id="gov-schedule-bar"></div>
+        <div class="gov-schedule-slots" id="gov-schedule-slots"></div>
+      </div>
+
+      <h3>Performance Knobs</h3>
+      <div class="gov-knobs">
+        <label>Reserve Tokens Floor: <input type="number" id="gov-reserve-input" min="5000" max="100000" step="5000" value="20000"></label>
+      </div>
+      <div class="gov-knobs" style="margin-top: 12px">
+        <div style="width: 100%">
+          <div class="gov-temp-presets">
+            <button class="gov-temp-preset" data-temp="0.3">🥋 Chi-Chi<br><small>0.3 — Focused</small></button>
+            <button class="gov-temp-preset" data-temp="0.5">📚 Gohan<br><small>0.5 — Balanced</small></button>
+            <button class="gov-temp-preset" data-temp="1.0">💥 Broly<br><small>1.0 — Creative</small></button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px">
+            <span style="color: #aaa; font-size: 13px">Temperature:</span>
+            <input type="range" id="gov-temp-slider" min="0" max="1" step="0.05" value="0.5">
+            <span id="gov-temp-value">0.5</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gov-knobs gov-reasoning-section" style="margin-top: 16px">
+        <div style="width: 100%">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px">
+            <span style="color: #aaa; font-size: 13px">🧠 Reasoning (Extended Thinking):</span>
+            <label class="gov-toggle-switch">
+              <input type="checkbox" id="gov-reasoning-toggle">
+              <span class="gov-toggle-slider"></span>
+            </label>
+            <span id="gov-reasoning-label" style="font-size: 12px; color: #888">OFF</span>
+          </div>
+          <div id="gov-budget-row" style="display: none; align-items: center; gap: 8px; margin-top: 8px">
+            <span style="color: #aaa; font-size: 13px">Budget Tokens:</span>
+            <input type="range" id="gov-budget-slider" min="5000" max="65536" step="1000" value="10000">
+            <span id="gov-budget-value" style="font-family: 'Space Grotesk', monospace; font-size: 14px; color: #7c5cff; min-width: 50px">10,000</span>
+          </div>
+          <div id="gov-reasoning-note" style="display: none; font-size: 11px; color: #ff6347; margin-top: 4px">
+            ⚠️ Temperature locked to 1.0 when reasoning is enabled (Anthropic API requirement)
+          </div>
+        </div>
+      </div>
+
+      <div class="gov-actions">
+        <button class="btn-primary" id="gov-save">💾 Save & Apply</button>
+        <span id="gov-save-status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span id="last-updated">OpenClaw Governor v1.0</span>
+    <span><a href="https://github.com/akivasolutions/openclaw-governor" target="_blank" style="color: var(--accent); text-decoration: none;">GitHub</a></span>
+    <span><a href="docs/POWER-LEVELS.md" target="_blank" style="color: var(--accent-2); text-decoration: none;">Power Levels Guide</a></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

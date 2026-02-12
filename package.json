@@ -1,0 +1,35 @@
+{
+  "name": "openclaw-governor",
+  "version": "1.0.0",
+  "description": "DBZ-themed power level governor for OpenClaw agents — control token limits, temperature, and reasoning with Super Saiyan flair",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "openclaw",
+    "token-governor",
+    "power-level",
+    "dbz",
+    "context-window",
+    "ai-agent"
+  ],
+  "author": "Akiva Solutions",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akivasolutions/openclaw-governor.git"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/akivasolutions/openclaw-governor/issues"
+  },
+  "homepage": "https://github.com/akivasolutions/openclaw-governor#readme"
+}

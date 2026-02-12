@@ -1,0 +1,88 @@
+{
+  "mode": "manual",
+  "currentLevel": "high",
+  "manualMaxTokens": 16384,
+  "levels": {
+    "low": 4096,
+    "medium": 8192,
+    "high": 16384,
+    "ssg": 32768,
+    "ssb": 65536,
+    "max": 128000
+  },
+  "schedule": {
+    "enabled": false,
+    "slots": [
+      {
+        "start": 0,
+        "end": 8,
+        "level": "low"
+      },
+      {
+        "start": 8,
+        "end": 23,
+        "level": "medium"
+      },
+      {
+        "start": 23,
+        "end": 24,
+        "level": "low"
+      }
+    ]
+  },
+  "knobs": {
+    "reserveTokensFloor": 20000,
+    "temperature": 0.5,
+    "reasoning": false,
+    "budgetTokens": 10000
+  },
+  "taskPresets": {
+    "code": {
+      "level": "medium",
+      "temperature": 0.3,
+      "reasoning": false,
+      "name": "💻 Code",
+      "desc": "Precise coding"
+    },
+    "creativity": {
+      "level": "high",
+      "temperature": 1,
+      "reasoning": true,
+      "budgetTokens": 12000,
+      "name": "🎨 Creative",
+      "desc": "Writing & content (thinking)"
+    },
+    "pm": {
+      "level": "low",
+      "temperature": 0.5,
+      "reasoning": false,
+      "name": "📋 PM",
+      "desc": "Project management"
+    },
+    "planning": {
+      "level": "ssg",
+      "temperature": 1,
+      "reasoning": true,
+      "budgetTokens": 10000,
+      "name": "🏗️ Planning",
+      "desc": "Architecture design (thinking)"
+    },
+    "brainstorm": {
+      "level": "high",
+      "temperature": 1,
+      "reasoning": true,
+      "budgetTokens": 15000,
+      "name": "💡 Brainstorm",
+      "desc": "Wild ideation (thinking)"
+    },
+    "debug": {
+      "level": "ssb",
+      "temperature": 1,
+      "reasoning": true,
+      "budgetTokens": 20000,
+      "name": "🐛 Debug",
+      "desc": "Deep analysis (thinking)"
+    }
+  },
+  "updatedAt": "2026-02-12T06:00:00.000Z"
+}

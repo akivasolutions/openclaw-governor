@@ -1,0 +1,266 @@
+:root {
+  --bg: #0b0f17;
+  --bg-2: #121826;
+  --card: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #f5f7ff;
+  --muted: #b7bfd9;
+  --accent: #7c5cff;
+  --accent-2: #45d6a9;
+  --danger: #ff5c5c;
+  --warning: #ffb347;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+}
+
+.bg-gradient {
+  position: fixed; inset: 0;
+  background: radial-gradient(circle at top right, rgba(124,92,255,0.2), transparent 45%),
+              radial-gradient(circle at bottom left, rgba(69,214,169,0.16), transparent 50%);
+  z-index: 0; pointer-events: none;
+}
+
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--line);
+  position: relative; z-index: 1;
+}
+
+.header-left { display: flex; align-items: center; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: 1px;
+}
+.logo span { color: var(--accent-2); }
+
+.budget-pill {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 600;
+  padding: 6px 16px; border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+.budget-pill.ok { border-color: var(--accent-2); color: var(--accent-2); }
+.budget-pill.warning { border-color: var(--warning); color: var(--warning); }
+.budget-pill.critical { border-color: var(--danger); color: var(--danger); }
+
+.main {
+  max-width: 1200px; margin: 0 auto;
+  padding: 32px; position: relative; z-index: 1;
+}
+
+/* Stat Cards */
+.stat-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-label {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--muted); margin-bottom: 8px;
+}
+
+.stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px; font-weight: 700; margin-bottom: 4px;
+}
+
+.stat-sub { font-size: 13px; color: var(--muted); }
+
+/* Sections */
+.section { margin-bottom: 40px; }
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px; font-weight: 600; margin-bottom: 16px;
+}
+.section-sub { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+
+/* ─── Governor Tab ──────────────────── */
+.gov-controls { max-width: 700px; }
+.gov-controls h3 { margin: 24px 0 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; }
+.gov-controls h3:first-child { margin-top: 0; }
+.gov-presets { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.gov-preset {
+  flex: 1 1 calc(33% - 10px); min-width: 90px; padding: 12px 8px; border: 2px solid #333; border-radius: 8px;
+  background: #1a1a2e; color: #ccc; cursor: pointer; text-align: center;
+  font-size: 13px; font-weight: 600; transition: all 0.3s;
+}
+.gov-preset:hover { color: #fff; transform: scale(1.02); }
+/* DBZ Power Level Colors */
+.gov-preset[data-level="low"] { border-color: #2E7D32; }
+.gov-preset[data-level="low"]:hover { border-color: #4CAF50; }
+.gov-preset[data-level="low"].active { border-color: #4CAF50; background: #1a3a1a; color: #4CAF50; box-shadow: 0 0 15px rgba(76,175,80,0.4); }
+.gov-preset[data-level="medium"] { border-color: #1565C0; }
+.gov-preset[data-level="medium"]:hover { border-color: #2196F3; }
+.gov-preset[data-level="medium"].active { border-color: #2196F3; background: #1a2a3e; color: #64B5F6; box-shadow: 0 0 15px rgba(33,150,243,0.4); }
+.gov-preset[data-level="high"] { border-color: #B8860B; }
+.gov-preset[data-level="high"]:hover { border-color: #FFD700; }
+.gov-preset[data-level="high"].active { border-color: #FFD700; background: #3a3a1a; color: #FFD700; box-shadow: 0 0 20px rgba(255,215,0,0.5); animation: saiyan-aura 2s ease-in-out infinite; }
+.gov-preset[data-level="ssg"] { border-color: #D84315; }
+.gov-preset[data-level="ssg"]:hover { border-color: #FF5722; }
+.gov-preset[data-level="ssg"].active { border-color: #FF5722; background: #3a1a1a; color: #FF5722; box-shadow: 0 0 20px rgba(255,87,34,0.5); animation: ssg-aura 2s ease-in-out infinite; }
+.gov-preset[data-level="ssb"] { border-color: #0097A7; }
+.gov-preset[data-level="ssb"]:hover { border-color: #00BCD4; }
+.gov-preset[data-level="ssb"].active { border-color: #00BCD4; background: #1a2a3a; color: #00BCD4; box-shadow: 0 0 22px rgba(0,188,212,0.5); animation: ssb-aura 1.8s ease-in-out infinite; }
+.gov-preset[data-level="max"] { border-color: #666; }
+.gov-preset[data-level="max"]:hover { border-color: #E0E0E0; }
+.gov-preset[data-level="max"].active { border-color: #E0E0E0; background: #2a1a2e; color: #E0E0E0; box-shadow: 0 0 25px rgba(192,192,255,0.5), 0 0 50px rgba(192,192,255,0.2); animation: ultra-instinct 1.5s ease-in-out infinite; }
+@keyframes saiyan-aura {
+  0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.4); }
+  50% { box-shadow: 0 0 30px rgba(255,215,0,0.7), 0 0 60px rgba(255,215,0,0.2); }
+}
+@keyframes ultra-instinct {
+  0%, 100% { box-shadow: 0 0 20px rgba(192,192,255,0.4); }
+  50% { box-shadow: 0 0 40px rgba(192,192,255,0.7), 0 0 80px rgba(192,192,255,0.3); }
+}
+@keyframes ssg-aura {
+  0%, 100% { box-shadow: 0 0 18px rgba(255,87,34,0.4); }
+  50% { box-shadow: 0 0 35px rgba(255,87,34,0.7), 0 0 70px rgba(255,87,34,0.2); }
+}
+@keyframes ssb-aura {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,188,212,0.4); }
+  50% { box-shadow: 0 0 38px rgba(0,188,212,0.7), 0 0 75px rgba(0,188,212,0.3); }
+}
+.gov-custom { display: flex; align-items: center; gap: 12px; }
+.gov-custom label { flex: 1; display: flex; align-items: center; gap: 8px; color: #aaa; font-size: 13px; }
+.gov-custom input[type="range"] { flex: 1; accent-color: #7c5cff; }
+#gov-slider-value { font-family: monospace; font-size: 15px; color: #7c5cff; min-width: 70px; }
+.gov-mode-toggle { display: flex; flex-direction: column; gap: 8px; }
+.gov-mode-toggle label { color: #ccc; font-size: 14px; cursor: pointer; }
+.gov-mode-toggle input { accent-color: #7c5cff; }
+.gov-schedule { margin-top: 8px; }
+.gov-schedule-bar {
+  display: flex; height: 40px; border-radius: 6px; overflow: hidden; border: 1px solid #333;
+}
+.gov-schedule-bar .slot {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: #fff; text-transform: uppercase;
+}
+.gov-schedule-bar .slot.low { background: #1a3a2a; }
+.gov-schedule-bar .slot.medium { background: #2a2a4e; }
+.gov-schedule-bar .slot.high { background: #4e2a1a; }
+.gov-schedule-bar .slot.max { background: #5e1a1a; }
+.gov-knobs { display: flex; gap: 16px; flex-wrap: wrap; }
+.gov-knobs label { color: #ccc; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+.gov-knobs input[type="number"] {
+  width: 100px; padding: 6px 8px; background: #1a1a2e; border: 1px solid #333;
+  border-radius: 4px; color: #fff; font-family: monospace;
+}
+.gov-actions { margin-top: 24px; display: flex; align-items: center; gap: 12px; }
+.btn-primary {
+  padding: 10px 24px; background: #7c5cff; color: #fff; border: none;
+  border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: #6a4de0; }
+#gov-save-status { font-size: 13px; color: #45d6a9; }
+/* Interactive schedule bar */
+.gov-hour-seg {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; color: #888; cursor: pointer;
+  transition: all 0.15s; border-bottom: 2px solid transparent; user-select: none;
+}
+.gov-hour-seg:hover { opacity: 0.75; transform: scaleY(1.1); }
+.gov-hour-seg.now { border-bottom-color: #fff; color: #fff; font-weight: 700; }
+.gov-hour-seg.low { border-bottom-color: #4CAF50; }
+.gov-hour-seg.medium { border-bottom-color: #2196F3; }
+.gov-hour-seg.high { border-bottom-color: #FFD700; }
+.gov-hour-seg.ssg { border-bottom-color: #FF5722; }
+.gov-hour-seg.ssb { border-bottom-color: #00BCD4; }
+.gov-hour-seg.max { border-bottom-color: #E0E0E0; }
+.gov-schedule-legend { display: flex; gap: 16px; margin-top: 8px; font-size: 11px; color: #aaa; flex-wrap: wrap; }
+.gov-schedule-legend span { display: flex; align-items: center; gap: 4px; }
+/* Temperature slider */
+#gov-temp-slider { accent-color: #ff6347; width: 120px; }
+#gov-temp-value { font-family: 'Space Grotesk', monospace; font-size: 14px; color: #ff6347; min-width: 35px; }
+/* Temperature presets */
+.gov-temp-presets { display: flex; gap: 8px; margin-bottom: 4px; }
+.gov-temp-preset {
+  flex: 1; padding: 8px 6px; border: 2px solid #333; border-radius: 6px;
+  background: #1a1a2e; color: #ccc; cursor: pointer; text-align: center;
+  font-size: 12px; font-weight: 600; transition: all 0.3s; line-height: 1.3;
+}
+.gov-temp-preset:hover { color: #fff; transform: scale(1.02); }
+.gov-temp-preset small { display: block; font-size: 10px; color: #888; margin-top: 2px; }
+.gov-temp-preset[data-temp="0.3"] { border-color: #7B1FA2; }
+.gov-temp-preset[data-temp="0.3"]:hover { border-color: #9C27B0; }
+.gov-temp-preset[data-temp="0.3"].active { border-color: #9C27B0; background: #2a1a2e; color: #CE93D8; box-shadow: 0 0 12px rgba(156,39,176,0.4); }
+.gov-temp-preset[data-temp="0.5"] { border-color: #388E3C; }
+.gov-temp-preset[data-temp="0.5"]:hover { border-color: #4CAF50; }
+.gov-temp-preset[data-temp="0.5"].active { border-color: #4CAF50; background: #1a2a1a; color: #81C784; box-shadow: 0 0 12px rgba(76,175,80,0.4); }
+.gov-temp-preset[data-temp="1.0"] { border-color: #C62828; }
+.gov-temp-preset[data-temp="1.0"]:hover { border-color: #F44336; }
+.gov-temp-preset[data-temp="1.0"].active { border-color: #F44336; background: #2e1a1a; color: #EF5350; box-shadow: 0 0 15px rgba(244,67,54,0.5); }
+/* Task presets */
+.gov-task-presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.gov-task-preset {
+  padding: 12px 10px; border: 2px solid #333; border-radius: 8px;
+  background: #1a1a2e; color: #ccc; cursor: pointer; text-align: center;
+  font-size: 13px; font-weight: 600; transition: all 0.3s; line-height: 1.4;
+}
+.gov-task-preset:hover { color: #fff; transform: scale(1.02); border-color: #7c5cff; }
+.gov-task-preset.active { border-color: #7c5cff; background: #2a2a3e; color: #b8a5ff; box-shadow: 0 0 15px rgba(124,92,255,0.3); }
+.gov-task-preset small { display: block; font-size: 10px; color: #888; margin-top: 4px; }
+/* Reasoning toggle switch */
+.gov-toggle-switch {
+  position: relative; display: inline-block; width: 44px; height: 22px;
+}
+.gov-toggle-switch input { opacity: 0; width: 0; height: 0; }
+.gov-toggle-slider {
+  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+  background: #333; border-radius: 22px; border: 1px solid #555; transition: 0.3s;
+}
+.gov-toggle-slider:before {
+  content: ''; position: absolute; height: 16px; width: 16px; left: 2px; bottom: 2px;
+  background: #888; border-radius: 50%; transition: 0.3s;
+}
+.gov-toggle-switch input:checked + .gov-toggle-slider {
+  background: #2a1a3e; border-color: #7c5cff; box-shadow: 0 0 10px rgba(124,92,255,0.4);
+}
+.gov-toggle-switch input:checked + .gov-toggle-slider:before {
+  transform: translateX(22px); background: #7c5cff;
+}
+#gov-budget-slider { accent-color: #7c5cff; width: 140px; }
+/* Disabled temperature state when reasoning is on */
+#gov-temp-slider.disabled,
+.gov-temp-presets.disabled {
+  opacity: 0.35; pointer-events: none; filter: grayscale(1);
+}
+
+/* Footer */
+.footer {
+  display: flex; justify-content: center; gap: 24px;
+  padding: 20px 32px;
+  font-size: 12px; color: var(--muted);
+  border-top: 1px solid var(--line);
+  position: relative; z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
+  .header { padding: 16px 20px; }
+  .main { padding: 20px; }
+}
+
+@media (max-width: 600px) {
+  .gov-task-presets { grid-template-columns: repeat(2, 1fr); }
+  .stat-cards { grid-template-columns: 1fr; }
+}
