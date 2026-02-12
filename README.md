@@ -223,7 +223,7 @@ Pull requests welcome! This is a community tool for OpenClaw users.
 
 ## Credits
 
-Built by [Akiva Solutions](https://github.com/akivasolutions) for the OpenClaw community.
+Built by [Akiva Solutions](https://akivasolutions.com) for the OpenClaw community.
 
 **Inspired by:**
 - Dragon Ball Z power levels
