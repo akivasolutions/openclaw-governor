@@ -1,5 +1,5 @@
 {
-  "name": "power-level-governor",
+  "name": "openclaw-governor",
   "version": "1.0.0",
   "description": "DBZ-themed power level governor for OpenClaw agents — control token limits, temperature, and reasoning with Super Saiyan flair",
   "main": "server.js",
